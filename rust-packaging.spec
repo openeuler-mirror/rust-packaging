@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           rust-packaging
-Version:        10
+Version:        15
 Release:        1
 Summary:        RPM macros for building Rust packages on various architectures
 License:        MIT
@@ -65,5 +65,8 @@ py.test-%{python3_version} -vv test.py
 %{python3_sitelib}/rust2rpm-*.egg-info/
 
 %changelog
+* Tue Feb 02 2021 shixuantong <shixuantong@huawei.com> - 15-1
+- Upgrade to version 15
+
 * Wed Mar 4 2020 hexiujun <hexiujun1@huawei.com> - 10-1
 - Package init

@@ -12,7 +12,7 @@ Signed-off-by: Igor Gnatenko <ignatenkobrain@fedoraproject.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/data/macros.cargo b/data/macros.cargo
-index 1182850..5066587 100644
+index 9bafc86..d13b7fa 100644
 --- a/data/macros.cargo
 +++ b/data/macros.cargo
 @@ -89,7 +89,8 @@ if %__cargo_is_lib; then                                            \
@@ -22,9 +22,9 @@ index 1182850..5066587 100644
 -  %{__awk} -i inplace -v INPLACE_SUFFIX=.deps '/^\\\[((.+\\\.)?((dev|build)-)?dependencies|features)/{f=1;next} /^\\\[/{f=0}; !f' Cargo.toml \
 +  mv Cargo.toml{,.deps}                                             \
 +  awk '/^\\\[((.+\\\.)?((dev|build)-)?dependencies|features)/{f=1;next} /^\\\[/{f=0}; !f' Cargo.toml.deps > Cargo.toml \
-   %{__cargo} package -l | xargs -d '\\\n' %{__cp} --parents -a -t $REG_DIR \
+   %{__cargo} package -l | grep -w -E -v 'Cargo.(lock|toml.orig)' | xargs -d '\\\n' %{__cp} --parents -a -t $REG_DIR \
    %{__mv} Cargo.toml{.deps,}                                        \
    %{__cp} -a Cargo.toml $REG_DIR/Cargo.toml                         \
 -- 
-2.22.0
+1.8.3.1
 
