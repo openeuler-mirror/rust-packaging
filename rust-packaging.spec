@@ -4,7 +4,7 @@
 
 Name:           rust-packaging
 Version:        15
-Release:        1
+Release:        2
 Summary:        RPM macros for building Rust packages on various architectures
 License:        MIT
 URL:            https://pagure.io/fedora-rust/rust2rpm
@@ -18,7 +18,7 @@ BuildRequires:  python3-pytest cargo python3-semantic_version
 
 # gawk is needed for stripping dev-deps in macro
 Requires:       gawk python3-rust2rpm = %{version}-%{release}
-Requires:       rust-srpm-macros = %{version} rust cargo
+Requires:       rust-srpm-macros rust cargo
 
 %description
 The package provides macros for building projects in Rust
@@ -65,6 +65,9 @@ py.test-%{python3_version} -vv test.py
 %{python3_sitelib}/rust2rpm-*.egg-info/
 
 %changelog
+* Thu Mar 18 2021 shixuantong <shixuantong@huawei.com> - 15-2
+- fix install fail issue because nothing provides rust-srpm-macros = 15
+
 * Tue Feb 02 2021 shixuantong <shixuantong@huawei.com> - 15-1
 - Upgrade to version 15
 
