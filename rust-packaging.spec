@@ -3,12 +3,12 @@
 %global debug_package %{nil}
 
 Name:           rust-packaging
-Version:        15
-Release:        2
+Version:        20
+Release:        1
 Summary:        RPM macros for building Rust packages on various architectures
 License:        MIT
 URL:            https://pagure.io/fedora-rust/rust2rpm
-Source:         https://releases.pagure.org/fedora-rust/rust2rpm/rust2rpm-%{version}.tar.xz
+Source:         https://pagure.io/fedora-rust/rust2rpm/archive/v%{version}/rust2rpm-v%{version}.tar.gz
 
 Patch0001:      0001-macros-Do-not-use-awk-s-inplace-feature.patch
 
@@ -36,7 +36,7 @@ Provides:       rust2rpm = %{version}-%{release}
 Convert Rust packages to RPM.
 
 %prep
-%autosetup -n rust2rpm-%{version} -p1
+%autosetup -n rust2rpm-v%{version} -p1
 
 %build
 %py3_build
@@ -65,6 +65,9 @@ py.test-%{python3_version} -vv test.py
 %{python3_sitelib}/rust2rpm-*.egg-info/
 
 %changelog
+* Tue Jan 18 2022 SimpleUpdate Robot <tc@openeuler.org> - 20-1
+- Upgrade to version 20
+
 * Thu Mar 18 2021 shixuantong <shixuantong@huawei.com> - 15-2
 - fix install fail issue because nothing provides rust-srpm-macros = 15
 
