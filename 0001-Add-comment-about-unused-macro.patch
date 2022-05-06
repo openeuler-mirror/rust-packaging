@@ -1,0 +1,21 @@
+From 0aa82d22b00b4191ddff1e9ba9cb53686481f8ac Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Tue, 22 Feb 2022 11:28:52 +0100
+Subject: [PATCH 1/2] Add comment about unused macro
+
+---
+ data/macros.rust | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/data/macros.rust b/data/macros.rust
+index 0940d06485..3a9281849f 100644
+--- a/data/macros.rust
++++ b/data/macros.rust
+@@ -14,6 +14,7 @@
+ 
+ %__global_rustflags %{build_rustflags}
+ 
++# Currently unused, retained for backwards compatibility.
+ %__global_rustflags_toml [%{lua:
+     for arg in string.gmatch(rpm.expand("%{build_rustflags}"), "%S+") do
+         print('"' .. arg .. '", ')

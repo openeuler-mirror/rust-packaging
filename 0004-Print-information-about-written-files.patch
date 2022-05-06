@@ -1,0 +1,31 @@
+From 7d8c9a802866ef0a35ab4d67d8869f30c650827a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Mon, 28 Feb 2022 10:32:10 +0100
+Subject: [PATCH 3/3] Print information about written files
+
+We already output some messages, but not the most important part: what
+files were written.
+---
+ rust2rpm/__main__.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/rust2rpm/__main__.py b/rust2rpm/__main__.py
+index 13dc26a313..a011217443 100644
+--- a/rust2rpm/__main__.py
++++ b/rust2rpm/__main__.py
+@@ -515,10 +515,11 @@ def main():
+         with open(spec_file, "w") as fobj:
+             fobj.write(spec_contents)
+             fobj.write("\n")
++        print(f'Wrote {fobj.name}')
+         if patch_file is not None:
+             with open(patch_file, "w") as fobj:
+                 fobj.writelines(diff)
+-
++            print(f'Wrote {fobj.name}')
+ 
+ if __name__ == "__main__":
+     main()
+-- 
+2.35.1
+

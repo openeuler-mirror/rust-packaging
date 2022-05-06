@@ -1,0 +1,31 @@
+From b9e95b4d61739f21c2f64ee3df497d93272a67af Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Mon, 28 Feb 2022 14:01:20 +0100
+Subject: [PATCH 2/3] Fix autodetection of rpmautospec
+
+When store_true or store_false are used, the default default changes
+from None to a boolean. I didn't know about this, and I wrote the code
+to assume args.rpmautospec would be None. rpmautospec detection was
+effectively always disabled.
+---
+ rust2rpm/__main__.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/rust2rpm/__main__.py b/rust2rpm/__main__.py
+index 0f575ad12f..13dc26a313 100644
+--- a/rust2rpm/__main__.py
++++ b/rust2rpm/__main__.py
+@@ -360,8 +360,10 @@ def main():
+     parser.add_argument("-s", "--store-crate", action="store_true",
+                         help="Store crate in current directory")
+     parser.add_argument("-a", "--rpmautospec", action="store_true",
++                        default=None,
+                         help="Use autorelease and autochangelog features")
+     parser.add_argument("--no-rpmautospec", action="store_false",
++                        default=None,
+                         help="Do not use rpmautospec")
+     parser.add_argument("--relative-license-paths", action="store_true",
+                         help="Put all license files in main license directory")
+-- 
+2.35.1
+

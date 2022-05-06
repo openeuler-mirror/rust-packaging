@@ -1,0 +1,40 @@
+From 1b14d44d5705e2c87bc52d56f9ea184994669da1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Tue, 22 Feb 2022 11:41:46 +0100
+Subject: [PATCH 2/2] Allow easy overriding of the
+ opt-level/debuginfo/codegen-units flags
+
+Some crates use debuginfo=0 or debuginfo=1 to reduce memory pressure during
+builds. This should make this easy.
+
+Fixes https://pagure.io/fedora-rust/rust2rpm/issue/181
+---
+ data/macros.rust | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/data/macros.rust b/data/macros.rust
+index 3a9281849f..efa46a3212 100644
+--- a/data/macros.rust
++++ b/data/macros.rust
+@@ -1,14 +1,18 @@
+ %__rustc %{_bindir}/rustc
+ %__rustdoc %{_bindir}/rustdoc
+ 
++%rustflags_opt_level 3
++%rustflags_debuginfo 2
++%rustflags_codegen_units 1
++
+ # Enable optimization, debuginfo, and link hardening.
+ %build_rustflags %{shrink:
+-  -Copt-level=3
+-  -Cdebuginfo=2
++  -Copt-level=%rustflags_opt_level
++  -Cdebuginfo=%rustflags_debuginfo
++  -Ccodegen-units=%rustflags_codegen_units
+   -Clink-arg=-Wl,-z,relro
+   -Clink-arg=-Wl,-z,now
+   %{?_package_note_file:-Clink-arg=-Wl,-dT,%{_package_note_file}}
+-  -Ccodegen-units=1
+   --cap-lints=warn
+ }
+ 
